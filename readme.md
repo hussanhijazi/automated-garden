@@ -16,8 +16,9 @@
 ## Picocom
 ```$ picocom /dev/ttyUSB0``` 
 
-https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/
-https://www.hackster.io/HARGOVIND/nodemcu-based-iot-project-connecting-yl-69-yl-38-moisture-7cf84a
-https://randomnerdtutorials.com/esp32-esp8266-analog-readings-micropython/
-https://www.ardumotive.com/how-to-use-the-raindrops-sensor-moduleen.html
-https://www.youtube.com/watch?v=x219R5rzRtU 
+## Links
+- https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/
+- https://www.hackster.io/HARGOVIND/nodemcu-based-iot-project-connecting-yl-69-yl-38-moisture-7cf84a
+- https://randomnerdtutorials.com/esp32-esp8266-analog-readings-micropython/
+- https://www.ardumotive.com/how-to-use-the-raindrops-sensor-moduleen.html
+- https://www.youtube.com/watch?v=x219R5rzRtU 
