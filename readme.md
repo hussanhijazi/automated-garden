@@ -1,13 +1,20 @@
-$ pip install esptool
-Using esptool.py you can erase the flash with the command:
+## Install esptool
+```$ pip install esptool```
 
-$ esptool.py --port /dev/ttyUSB0 erase_flash
-And then deploy the new firmware using:
+## Erase the entire flash using
+```$ esptool.py --chip esp32 --port /dev/ttyUSB0 erase_flash```
 
-esptool.py --port /dev/ttyUSB0 --baud 460800 write_flash --flash_size=detect 0 esp8266-20170108-v1.8.7.bin
-$ ampy --port /dev/ttyUSB0 ls               
+## And then deploy the new firmware using
+```$ esptool.py --chip esp32 --port /dev/ttyUSB0 --baud 460800 write_flash -z 0x1000 esp32-20220618-v1.19.1.bin```
 
-$ picocom
+## Install Ampy
+```$ pip install adafruit-ampy```
+
+## Use Ampy to list files
+```$ ampy --port /dev/ttyUSB0 ls```             
+
+## Picocom
+```$ picocom /dev/ttyUSB0``` 
 
 https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/
 https://www.hackster.io/HARGOVIND/nodemcu-based-iot-project-connecting-yl-69-yl-38-moisture-7cf84a
