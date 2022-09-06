@@ -2,13 +2,9 @@ import network
 import ubinascii
 from wifi import getMacAddress
 
-TYPE_DEVICE = "relay"
-NAME_PROJECT = 'devicehub'
+topic_sub = ['soil_sensor']
 
-topic_sub = ['relay']
-
-
-def getMacAddress():
+def get_mac_address():
     mac = ubinascii.hexlify(network.WLAN().config('mac'), ':').decode()
     return mac
 
@@ -23,7 +19,7 @@ def factory_topic_composer(args):
     topics = []
     for i in range(len(args)):
         topic = args[i]
-        topic_composition = (getMacAddress(), '/', topic)
+        topic_composition = (get_mac_address(), '/', topic)
         agglutinate = ''
         topics.append(agglutinate.join(topic_composition))
     return topics

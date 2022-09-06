@@ -1,8 +1,9 @@
 import server
-import mqtt_client
 import wifi
-import network
-from board import factory_topic_sub
+import soil_sensor
+import temp_sensor
+from time import sleep
+import mqtt_client
 
 is_connected = wifi.connect()
 
@@ -12,6 +13,9 @@ if not is_connected:
     server.listen()
 else:
     print("connected wifi")
-    topics = factory_topic_sub()
     mqtt_client.init()
-    mqtt_client.subscribe(topics)
+    while True:
+        temp_sensor.subscribe_mqtt()
+        soil_sensor.subscribe_mqtt()
+        sleep(5)
+

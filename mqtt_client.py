@@ -3,9 +3,6 @@ import ubinascii
 from umqtt.simple import MQTTClient
 import time
 
-# Rele
-pin = machine.Pin(4, machine.Pin.OUT)
-
 MQTT_BROKER = "broker.hivemq.com"
 
 CONFIG = {
@@ -24,16 +21,8 @@ client = MQTTClient(CONFIG['CLIENT_ID'], CONFIG['MQTT_BROKER'],
 
 # Method to act based on message received
 
-
 def onMessage(topic, msg):
     print("Topic: %s, Message: %s" % (topic, msg))
-
-    if msg == b"on":
-        pin.on()
-        # led.on()
-    elif msg == b"off":
-        pin.off()
-        # led.off()
 
 
 def init():
