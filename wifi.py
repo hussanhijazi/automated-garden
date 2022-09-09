@@ -14,8 +14,7 @@ def connect():
             sta_if.connect(data[0], data[1])
             while not sta_if.isconnected():
                 pass
-    print('network config:', sta_if.ifconfig())
-    print('network config:', sta_if.ifconfig())
+    print('network config = ', sta_if.ifconfig())
     if sta_if.ifconfig()[0] == "0.0.0.0":
         return False
     return True
