@@ -1,7 +1,6 @@
 import machine
 import ubinascii
 from umqtt.simple import MQTTClient
-import time
 
 MQTT_BROKER = "broker.hivemq.com"
 
@@ -19,6 +18,7 @@ client = MQTTClient(CONFIG['CLIENT_ID'], CONFIG['MQTT_BROKER'],
                     user=CONFIG['USER'], password=CONFIG['PASSWORD'], port=CONFIG['PORT'],
                     keepalive=CONFIG['KEEP_ALIVE'])
 
+
 # Method to act based on message received
 
 def onMessage(topic, msg):
@@ -30,8 +30,8 @@ def init():
     client.connect()
 
 
-def publish(topic, msg):
-    client.publish(topic, msg)
+def publish(topic, msg, qos=1):
+    client.publish(topic, msg, qos=qos)
 
 
 def subscribe(topics):
@@ -41,10 +41,17 @@ def subscribe(topics):
         print("ESP8266 is Connected to %s in port %s and subscribed to %s topic" %
               (CONFIG['MQTT_BROKER'], CONFIG['PORT'], topic))
 
-    while True:
-        try:
-            client.check_msg()
-        except Exception as e:
-            print("type error: " + str(e))
+    #while True:
+    # Non-blocking wait for message
+#         try:
+#             client.check_msg()
+#         except Exception as e:
+#             print("type error: " + str(e))
 
-    client.disconnect()
+#    client.disconnect()
+
+def disconnect():
+    client.disconnet()
+
+def check_msg():
+    client.check_msg()

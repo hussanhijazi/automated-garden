@@ -14,9 +14,6 @@
 # limitations under the License.
 # https://raw.githubusercontent.com/hivemq-cloud/paho-mqtt-client-example/master/simple_example.py
 
-import firebase
-import time
-
 MQTT_BROKER = "broker.hivemq.com"
 
 CONFIG = {
@@ -25,11 +22,8 @@ CONFIG = {
     "PASSWORD": "",
     "PORT": 1883,
     "KEEP_ALIVE": 30,
-    # unique identifier of the chip
-    "CLIENT_ID": b"esp8266_"
+    "CLIENT_ID": b"mqtt_client"
 }
-
-firebase.connect()
 
 
 # setting callbacks for different events to see if it works, print the message etc.
@@ -84,11 +78,11 @@ def on_message(client, userdata, msg):
     """
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
-    topic = msg.topic.replace('/', '-')
-    value = msg.payload.decode('ASCII')
-    timestamp = time.time()
-
-    firebase.save(topic, {
-        'timestamp': timestamp,
-        'value': value
-    })
+    # topic = msg.topic.replace('/', '-')
+    # value = msg.payload.decode('ASCII')
+    # timestamp = time.time()
+    #
+    # firebase.save(topic, {
+    #     'timestamp': timestamp,
+    #     'value': value
+    # })
