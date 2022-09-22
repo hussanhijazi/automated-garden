@@ -1,10 +1,11 @@
+from time import sleep
+
+import rain_sensor
 import server
-import wifi
 import soil_sensor
 import temp_sensor
-import rain_sensor
-from time import sleep
 import umqtt_client
+import wifi
 from config import topic_water
 
 is_connected = wifi.connect()

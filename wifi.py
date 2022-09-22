@@ -1,10 +1,12 @@
-import machine
-import network
-import ubinascii
-import file
 from time import sleep
 
-def connect():              
+import network
+import ubinascii
+
+import file
+
+
+def connect():
     import network
     sta_if = network.WLAN(network.STA_IF)
     if not sta_if.isconnected():
@@ -39,7 +41,7 @@ def access_point():
     print('Access Point active:', ap.active())
     WIFI_NAME = 'espcoffee'
     WIFI_PASSWORD = 'esp1234567890'
-    ap.config(essid=WIFI_NAME, 
+    ap.config(essid=WIFI_NAME,
               authmode=network.AUTH_WPA_WPA2_PSK, password=WIFI_PASSWORD)
     print('Connect to ', WIFI_NAME, ' network with password', WIFI_PASSWORD, ' and access: http://' +
           ap.ifconfig()[0], " in you browser")

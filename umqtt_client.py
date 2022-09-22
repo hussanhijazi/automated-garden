@@ -41,8 +41,10 @@ def subscribe(topics):
         print("ESP8266 is Connected to %s in port %s and subscribed to %s topic" %
               (CONFIG['MQTT_BROKER'], CONFIG['PORT'], topic))
 
-    #while True:
+    # while True:
     # Non-blocking wait for message
+
+
 #         try:
 #             client.check_msg()
 #         except Exception as e:
@@ -52,6 +54,7 @@ def subscribe(topics):
 
 def disconnect():
     client.disconnet()
+
 
 def check_msg():
     client.check_msg()

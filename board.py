@@ -1,8 +1,8 @@
 import network
 import ubinascii
-from wifi import getMacAddress
 
 topic_sub = ['soil_sensor']
+
 
 def get_mac_address():
     mac = ubinascii.hexlify(network.WLAN().config('mac'), ':').decode()
