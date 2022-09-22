@@ -1,15 +1,17 @@
+import time
+
 import paho.mqtt.client as paho
+
+import firebase
+from config import topic_humidity
+from config import topic_rain
+from config import topic_soil
+from config import topic_temp
+from config import topic_water
 from mqtt_client import CONFIG
 from mqtt_client import on_connect
 from mqtt_client import on_publish
 from mqtt_client import on_subscribe
-from config import topic_soil
-from config import topic_temp
-from config import topic_humidity
-from config import topic_rain
-from config import topic_water
-import firebase
-import time
 
 soil_value = 0
 temp_value = 0
@@ -68,8 +70,8 @@ client.on_message = on_message
 client.on_publish = on_publish
 
 client.subscribe(topic_soil.decode('ASCII'), qos=1)
-# client.subscribe(topic_temp.decode('ASCII'), qos=1)
-# client.subscribe(topic_humidity.decode('ASCII'), qos=1)
-# client.subscribe(topic_rain.decode('ASCII'), qos=1)
+client.subscribe(topic_temp.decode('ASCII'), qos=1)
+client.subscribe(topic_humidity.decode('ASCII'), qos=1)
+client.subscribe(topic_rain.decode('ASCII'), qos=1)
 
 client.loop_forever()

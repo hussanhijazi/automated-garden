@@ -77,12 +77,3 @@ def on_message(client, userdata, msg):
         :param msg: the message with topic and payload
     """
     print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
-
-    # topic = msg.topic.replace('/', '-')
-    # value = msg.payload.decode('ASCII')
-    # timestamp = time.time()
-    #
-    # firebase.save(topic, {
-    #     'timestamp': timestamp,
-    #     'value': value
-    # })
