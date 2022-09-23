@@ -1,7 +1,7 @@
 FILE = "password.txt"
 
 
-def save_wifi(name, password):
+def save_wifi_password(name, password):
     f = open(FILE, "w+")
     f.write(name + ":" + password)
     f.close()

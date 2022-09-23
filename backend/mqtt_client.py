@@ -14,18 +14,6 @@
 # limitations under the License.
 # https://raw.githubusercontent.com/hivemq-cloud/paho-mqtt-client-example/master/simple_example.py
 
-MQTT_BROKER = "broker.hivemq.com"
-
-CONFIG = {
-    "MQTT_BROKER": MQTT_BROKER,
-    "USER": "",
-    "PASSWORD": "",
-    "PORT": 1883,
-    "KEEP_ALIVE": 30,
-    "CLIENT_ID": b"mqtt_client"
-}
-
-
 # setting callbacks for different events to see if it works, print the message etc.
 def on_connect(client, userdata, flags, rc, properties=None):
     """

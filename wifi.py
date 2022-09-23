@@ -30,7 +30,7 @@ def connect():
     return True
 
 
-def getMacAddress():
+def get_mac_address():
     mac = ubinascii.hexlify(network.WLAN().config('mac'), ':').decode()
     return mac
 
@@ -39,11 +39,11 @@ def access_point():
     ap = network.WLAN(network.AP_IF)
     ap.active(True)
     print('Access Point active:', ap.active())
-    WIFI_NAME = 'espcoffee'
-    WIFI_PASSWORD = 'esp1234567890'
-    ap.config(essid=WIFI_NAME,
-              authmode=network.AUTH_WPA_WPA2_PSK, password=WIFI_PASSWORD)
-    print('Connect to ', WIFI_NAME, ' network with password', WIFI_PASSWORD, ' and access: http://' +
+    wifi_name = 'automated-garden'
+    wifi_password = 'esp1234567890'
+    ap.config(essid=wifi_name,
+              authmode=network.AUTH_WPA_WPA2_PSK, password=wifi_password)
+    print('Connect to ', wifi_name, ' network with password', wifi_password, ' and access: http://' +
           ap.ifconfig()[0], " in you browser")
 
 

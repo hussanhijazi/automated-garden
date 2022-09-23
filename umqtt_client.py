@@ -1,32 +1,21 @@
-import machine
-import ubinascii
 from umqtt.simple import MQTTClient
 
-MQTT_BROKER = "broker.hivemq.com"
+from config import mqtt_config
 
-CONFIG = {
-    "MQTT_BROKER": MQTT_BROKER,
-    "USER": "",
-    "PASSWORD": "",
-    "PORT": 1883,
-    "KEEP_ALIVE": 30,
-    # unique identifier of the chip
-    "CLIENT_ID": b"esp8266_" + ubinascii.hexlify(machine.unique_id())
-}
 # Create an instance of MQTTClient
-client = MQTTClient(CONFIG['CLIENT_ID'], CONFIG['MQTT_BROKER'],
-                    user=CONFIG['USER'], password=CONFIG['PASSWORD'], port=CONFIG['PORT'],
-                    keepalive=CONFIG['KEEP_ALIVE'])
+client = MQTTClient(mqtt_config['client_id'], mqtt_config['mqtt_broker'],
+                    user=mqtt_config['user'], password=mqtt_config['password'], port=mqtt_config['port'],
+                    keepalive=mqtt_config['keep_alive'])
 
 
 # Method to act based on message received
 
-def onMessage(topic, msg):
+def on_message(topic, msg):
     print("Topic: %s, Message: %s" % (topic, msg))
 
 
 def init():
-    client.set_callback(onMessage)
+    client.set_callback(on_message)
     client.connect()
 
 
@@ -35,22 +24,11 @@ def publish(topic, msg, qos=1):
 
 
 def subscribe(topics):
-    print(topics)
     for topic in topics:
         client.subscribe(topic)
-        print("ESP8266 is Connected to %s in port %s and subscribed to %s topic" %
-              (CONFIG['MQTT_BROKER'], CONFIG['PORT'], topic))
+    print("ESP is Connected to %s in port %s and subscribed to %s topic" %
+          (mqtt_config['mqtt_broker'], mqtt_config['port'], topic))
 
-    # while True:
-    # Non-blocking wait for message
-
-
-#         try:
-#             client.check_msg()
-#         except Exception as e:
-#             print("type error: " + str(e))
-
-#    client.disconnect()
 
 def disconnect():
     client.disconnet()

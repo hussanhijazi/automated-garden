@@ -52,7 +52,7 @@ def listen():
             params = qs_parse(url)
             name = params["/?name"]
             password = params["password"]
-            file.save_wifi(name, password)
+            file.save_wifi_password(name, password)
             machine.reset()
 
         response = web_page()
