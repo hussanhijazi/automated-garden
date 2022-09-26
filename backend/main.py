@@ -36,7 +36,7 @@ mqtt_client.connect(mqtt_config['mqtt_broker'], mqtt_config['port'])
 
 def on_message(client, userdata, msg):
     logging.info(msg.topic + " - " + str(msg.qos) + " - " + str(msg.payload))
-    value = msg.payload.decode('ASCII')
+    value = msg.payload.decode()
 
     set_value(msg.topic, value)
 
@@ -58,7 +58,7 @@ def check_status():
 
 
 def set_status(status):
-    mqtt_client.publish(topic_water.decode('ASCII'), status.encode())
+    mqtt_client.publish(topic_water.decode(), status.encode())
     save_status(status)
     #firebase.send_notification('{TOKEN}', status)
 
@@ -82,13 +82,13 @@ def save_value(topic, value):
 
 def set_value(topic, value):
     global soil_value, rain_value, temp_value, humidity_value
-    if topic == topic_soil.decode('ASCII'):
+    if topic == topic_soil.decode():
         soil_value = float(value)
-    elif topic == topic_rain.decode('ASCII'):
+    elif topic == topic_rain.decode():
         rain_value = float(value)
-    elif topic == topic_temp.decode('ASCII'):
+    elif topic == topic_temp.decode():
         temp_value = float(value)
-    elif topic == topic_humidity.decode('ASCII'):
+    elif topic == topic_humidity.decode():
         humidity_value = float(value)
 
 
@@ -96,9 +96,9 @@ mqtt_client.on_subscribe = on_subscribe
 mqtt_client.on_message = on_message
 mqtt_client.on_publish = on_publish
 
-mqtt_client.subscribe(topic_soil.decode('ASCII'), qos=1)
-mqtt_client.subscribe(topic_temp.decode('ASCII'), qos=1)
-mqtt_client.subscribe(topic_humidity.decode('ASCII'), qos=1)
-mqtt_client.subscribe(topic_rain.decode('ASCII'), qos=1)
+mqtt_client.subscribe(topic_soil.decode(), qos=1)
+mqtt_client.subscribe(topic_temp.decode(), qos=1)
+mqtt_client.subscribe(topic_humidity.decode(), qos=1)
+mqtt_client.subscribe(topic_rain.decode(), qos=1)
 
 mqtt_client.loop_forever()
