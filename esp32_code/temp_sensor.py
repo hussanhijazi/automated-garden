@@ -1,3 +1,5 @@
+import json
+
 import dht
 from machine import Pin
 
@@ -10,10 +12,10 @@ pin = 33
 sensor = dht.DHT11(Pin(pin))
 
 
-def publish_mqtt():
+def publish_mqtt(timestamp):
     sensor.measure()
     print('--------------------------')
     print('Temperature: %.2f' % sensor.temperature() + '°')
     print('Air Humidity: %.2f' % sensor.humidity() + '%')
-    umqtt_client.publish(topic_temp, str(sensor.temperature()))
-    umqtt_client.publish(topic_humidity, str(sensor.humidity()))
+    umqtt_client.publish(topic_temp, json.dumps({'timestamp': timestamp, 'value': str(sensor.temperature())}))
+    umqtt_client.publish(topic_humidity, json.dumps({'timestamp': timestamp, 'value': str(sensor.humidity())}))

@@ -7,6 +7,7 @@ import temp_sensor
 import umqtt_client
 import wifi
 from config import topic_water
+from ntp_time import get_ntp_time
 
 is_connected = wifi.connect()
 
@@ -19,9 +20,10 @@ else:
     umqtt_client.init()
     umqtt_client.subscribe([topic_water])
     while True:
-        temp_sensor.publish_mqtt()
-        soil_sensor.publish_mqtt()
-        rain_sensor.publish_mqtt()
+        timestamp = get_ntp_time()
+        temp_sensor.publish_mqtt(timestamp)
+        soil_sensor.publish_mqtt(timestamp)
+        rain_sensor.publish_mqtt(timestamp)
         umqtt_client.check_msg()
         sleep(5)
 

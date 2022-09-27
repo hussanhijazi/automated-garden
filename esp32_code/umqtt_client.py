@@ -2,13 +2,10 @@ from umqtt.simple import MQTTClient
 
 from config import mqtt_config
 
-# Create an instance of MQTTClient
 client = MQTTClient(mqtt_config['client_id'], mqtt_config['mqtt_broker'],
                     user=mqtt_config['user'], password=mqtt_config['password'], port=mqtt_config['port'],
                     keepalive=mqtt_config['keep_alive'])
 
-
-# Method to act based on message received
 
 def on_message(topic, msg):
     print("Topic: %s, Message: %s" % (topic, msg))
