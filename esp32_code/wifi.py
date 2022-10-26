@@ -13,17 +13,19 @@ def connect():
         retry = 0
         data = file.get_wifi_password()
         if data != '':
-            print('connecting to network...', data[0])
+            print('Connecting to network', data[0], end='')
             sta_if.active(True)
             sta_if.connect(data[0], data[1])
             while not sta_if.isconnected():
                 if retry < 15:
                     retry = retry + 1
-                    sleep(1)
+                    sleep(0.5)
+                    print('.', end='')
                     pass
                 else:
                     break
-    print('network config = ', sta_if.ifconfig())
+    print('')
+    print('Wifi network config: ', sta_if.ifconfig())
     if sta_if.ifconfig()[0] == "0.0.0.0":
         sta_if.active(False)
         return False

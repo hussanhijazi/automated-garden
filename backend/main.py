@@ -3,13 +3,14 @@ import logging
 
 import paho.mqtt.client as paho
 
-import firebase
+import firebase as my_firebase
 from config import mqtt_config
 from config import topic_humidity
 from config import topic_rain
 from config import topic_soil
 from config import topic_temp
 from config import topic_water
+from config import water_state_collection
 from mqtt_client import on_connect
 from mqtt_client import on_publish
 from mqtt_client import on_subscribe
@@ -19,14 +20,14 @@ logging.basicConfig(
     level=logging.INFO,
     datefmt='%Y-%m-%d %H:%M:%S')
 
+firestore_client = my_firebase.connect()
+actual_water_state = my_firebase.actual_water_state(firestore_client)
 soil_value = 0
 temp_value = 0
 rain_value = 0
 humidity_value = 0
-water_status = False
+water_status = True if actual_water_state == 'on' else False
 water_threshold = 55
-
-firestore_client = firebase.connect()
 
 mqtt_client = paho.Client(mqtt_config['client_id'], userdata=None, protocol=paho.MQTTv5)
 mqtt_client.on_connect = on_connect
@@ -60,6 +61,7 @@ def check_status(timestamp):
 def send_status(status, timestamp):
     mqtt_client.publish(topic_water.decode(), status.encode())
     save_status(status, timestamp)
+    logging.info('Water State - ' + str(status) + ' - ' + str(timestamp))
     # firebase.send_notification('{TOKEN}', status)
 
 
@@ -68,7 +70,7 @@ def save_status(state, timestamp):
     #     'timestamp': timestamp,
     #     'state': state
     # })
-    firebase.save_firestore(firestore_client, 'water_state', {
+    my_firebase.save_firestore(firestore_client, water_state_collection, {
         'timestamp': timestamp,
         'state': state
     })
@@ -76,15 +78,10 @@ def save_status(state, timestamp):
 
 def save_value(topic, data):
     topic = topic.replace('/', '_')
-    firebase.save_firestore(firestore_client, topic, {
+    my_firebase.save_firestore(firestore_client, topic, {
         'timestamp': data['timestamp'],
         'value': data['value']
     })
-    # firebase.save(topic, {
-    #     'timestamp': timestamp,
-    #     'value': value
-    # })
-
 
 def set_value(topic, value):
     global soil_value, rain_value, temp_value, humidity_value

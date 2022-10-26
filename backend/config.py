@@ -8,10 +8,11 @@ topic_rain = b'ifpr/rain_sensor'
 
 topic_water = b'ifpr/water_control'
 
-mqtt_broker = "broker.hivemq.com"
+mqtt_broker = 'broker.hivemq.com'
+water_state_collection = "water_state"
 
 mqtt_config = {
-    "mqtt_broker": mqtt_broker,
-    "port": 1883,
-    "client_id": b"automated-garden"
+    'mqtt_broker': mqtt_broker,
+    'port': 1883,
+    'client_id': b'automated-garden'
 }

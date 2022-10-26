@@ -7,13 +7,10 @@ client = MQTTClient(mqtt_config['client_id'], mqtt_config['mqtt_broker'],
                     keepalive=mqtt_config['keep_alive'])
 
 
-def on_message(topic, msg):
-    print("Topic: %s, Message: %s" % (topic, msg))
-
-
 def init():
-    client.set_callback(on_message)
+    #client.set_callback(on_message)
     client.connect()
+    return client
 
 
 def publish(topic, msg, qos=1):
