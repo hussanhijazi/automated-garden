@@ -47,22 +47,19 @@ def on_message(client, userdata, msg):
 
 
 def check_status(timestamp):
-    global water_status
-    if not water_status:
-        if soil_value > water_threshold:
-            water_status = True
-            send_status('on', timestamp)
+    if soil_value > water_threshold:
+        send_status('on', timestamp)
+        save_status('on', timestamp)
     else:
         if soil_value <= water_threshold:
-            water_status = False
             send_status('off', timestamp)
+            save_status('off', timestamp)
 
 
 def send_status(status, timestamp):
     mqtt_client.publish(topic_water.decode(), status.encode())
-    save_status(status, timestamp)
     logging.info('Water State - ' + str(status) + ' - ' + str(timestamp))
-    # firebase.send_notification('{TOKEN}', status)
+    #firebase.send_notification('{TOKEN}', status)
 
 
 def save_status(state, timestamp):

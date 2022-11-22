@@ -11,7 +11,7 @@ from config import topic_water
 from ntp_time import get_ntp_time
 
 is_connected = wifi.connect()
-publish_time = 10
+publish_time = 5
 
 def on_message(topic, msg):
     if msg == b"off":
@@ -34,9 +34,9 @@ else:
         if count == -1 or count == publish_time:
             timestamp = get_ntp_time()
             print('Timestamp:', str(timestamp))
-            temp_sensor.publish_mqtt(timestamp)
+            #temp_sensor.publish_mqtt(timestamp)
             soil_sensor.publish_mqtt(timestamp)
-            rain_sensor.publish_mqtt(timestamp)
+            #rain_sensor.publish_mqtt(timestamp)
             print('--------------------------')
             count = 0
 
