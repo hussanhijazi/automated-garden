@@ -8,7 +8,6 @@ import umqtt_client
 import wifi
 import relay
 from config import topic_water
-from ntp_time import get_ntp_time
 
 is_connected = wifi.connect()
 publish_time = 5
@@ -26,6 +25,7 @@ if not is_connected:
     server.listen()
 else:
     print("Wifi connected...")
+    from ntp_time import get_ntp_time
     client = umqtt_client.init()
     client.set_callback(on_message)
     umqtt_client.subscribe([topic_water])
@@ -34,9 +34,9 @@ else:
         if count == -1 or count == publish_time:
             timestamp = get_ntp_time()
             print('Timestamp:', str(timestamp))
-            #temp_sensor.publish_mqtt(timestamp)
+            temp_sensor.publish_mqtt(timestamp)
             soil_sensor.publish_mqtt(timestamp)
-            #rain_sensor.publish_mqtt(timestamp)
+            rain_sensor.publish_mqtt(timestamp)
             print('--------------------------')
             count = 0
 
