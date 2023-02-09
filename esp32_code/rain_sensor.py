@@ -16,7 +16,7 @@ def publish_mqtt(timestamp):
     pot.width(ADC.WIDTH_10BIT)
 
     # pot_value = pot.read()
-    moisture = (pot.read()) * 100 / (max_moisture - min_moisture)
+    moisture = 100 - (pot.read()) * 100 / (max_moisture - min_moisture)
     # print('Rain:', str(pot_value))
     print("Rain sensor: " + "%.2f" % moisture + "% (adc: " + str(pot.read()) + ")")
     umqtt_client.publish(topic_rain, json.dumps({'timestamp': timestamp, 'value': str(moisture)}))

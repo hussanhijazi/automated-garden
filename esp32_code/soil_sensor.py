@@ -17,7 +17,7 @@ def publish_mqtt(timestamp):
 
     #    while True:
     # pot_value = pot.read()
-    moisture = (pot.read()) * 100 / (max_moisture - min_moisture)
+    moisture = 100 - (pot.read()) * 100 / (max_moisture - min_moisture)
     # print('Soil Humidity:', str(pot_value))
     print("Soil Humidity: " + "%.2f" % moisture + "% (adc: " + str(pot.read()) + ")")
     umqtt_client.publish(topic_soil, json.dumps({'timestamp': timestamp, 'value': str(moisture)}))

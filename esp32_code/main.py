@@ -34,12 +34,11 @@ else:
         if count == -1 or count == publish_time:
             timestamp = get_ntp_time()
             print('Timestamp:', str(timestamp))
-            temp_sensor.publish_mqtt(timestamp)
+         #   temp_sensor.publish_mqtt(timestamp)
             soil_sensor.publish_mqtt(timestamp)
-            rain_sensor.publish_mqtt(timestamp)
+          #  rain_sensor.publish_mqtt(timestamp)
             print('--------------------------')
             count = 0
-
         umqtt_client.check_msg()
         sleep(1)
         count += 1

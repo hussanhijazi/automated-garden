@@ -38,7 +38,7 @@ def on_message(client, userdata, msg):
     data = json.loads(value)
 
     set_value(msg.topic, data['value'])
-   # save_value(msg.topic, data)
+    save_value(msg.topic, data)
 
     if msg.topic == topic_soil.decode():
         logging.info(msg.topic + " - " + str(msg.qos) + " - " + str(msg.payload))
@@ -58,6 +58,7 @@ def check_water_status(timestamp):
     parts_start = start.split(":")
     parts_end = end.split(":")
 
+    ## TODO Checar se vem vazio os horários
     time_start = datetime.time(int(parts_start[0]), int(parts_start[1]), 0)
     time_end = datetime.time(int(parts_end[0]), int(parts_end[1]), 0)
 
@@ -69,7 +70,9 @@ def check_water_status(timestamp):
 
     logging.info(str(time_start) + " - Seconds Start: " + str(start_seconds) + " - " + str(can_start_time))
     logging.info(str(time_end) + " - Seconds End: " + str(end_seconds) + " - " + str(can_end_time))
-    logging.info("water status: " + str(water_status))
+    logging.info("Water status: " + str(water_status))
+    logging.info("Actual soil value: " + str(soil_value) + " - Soil trigger: " + str(soil_humidity))
+    logging.info("--------------------------------")
 
     if soil_value >= int(soil_humidity):
         if water_status:

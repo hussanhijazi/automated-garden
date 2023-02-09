@@ -13,8 +13,8 @@ def init():
     return client
 
 
-def publish(topic, msg, qos=1):
-    client.publish(topic, msg, qos=qos)
+def publish(topic, msg, retain=False, qos=1):
+    client.publish(topic, msg, retain=retain, qos=qos)
 
 
 def subscribe(topics):
