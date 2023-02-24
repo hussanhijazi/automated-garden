@@ -40,11 +40,10 @@ def on_message(client, userdata, msg):
     set_value(msg.topic, data['value'])
     save_value(msg.topic, data)
 
-    if msg.topic == topic_soil.decode():
-        logging.info(msg.topic + " - " + str(msg.qos) + " - " + str(msg.payload))
-        check_water_status(data['timestamp'])
-        # time.sleep(0.5)
+    logging.info(msg.topic + " - " + str(msg.qos) + " - " + str(msg.payload))
 
+    if msg.topic == topic_soil.decode():
+        check_water_status(data['timestamp'])
 
 
 def check_water_status(timestamp):
@@ -58,7 +57,6 @@ def check_water_status(timestamp):
     parts_start = start.split(":")
     parts_end = end.split(":")
 
-    ## TODO Checar se vem vazio os horários
     time_start = datetime.time(int(parts_start[0]), int(parts_start[1]), 0)
     time_end = datetime.time(int(parts_end[0]), int(parts_end[1]), 0)
 
@@ -90,14 +88,8 @@ def check_water_status(timestamp):
 def send_water_status(status, timestamp):
     mqtt_client.publish(topic_water.decode(), status.encode())
     logging.info('Water State - ' + str(status) + ' - ' + str(timestamp))
-    #firebase.send_notification('{TOKEN}', status)
-
 
 def save_water_status(state, timestamp):
-    # firebase.save('water_state', {
-    #     'timestamp': timestamp,
-    #     'state': state
-    # })
     my_firebase.save_firestore(firestore_client, water_state_collection, {
         'timestamp': timestamp,
         'state': state
